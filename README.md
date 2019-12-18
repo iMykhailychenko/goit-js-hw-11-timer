@@ -4,6 +4,8 @@
 
 # как использовать плагин таймера?
 
+### Для просмотра демо версии таймера переходите по этой [ссылке](https://imykhailychenko.github.io/goit-js-hw-11-timer/homework/index.html)
+
 Подключите основной файл с кодом к своему html файлу
 ```ruby
 <script src="./script.js" type="module"></script>
