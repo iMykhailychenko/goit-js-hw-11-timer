@@ -3,7 +3,7 @@ class CountdownTimer {
     this.container = document.querySelector(selector);
     this.targetDate = targetDate;
     // задаёт базовые данные для разметки
-    this.baseTime = ['00', '00', '00', '00'];
+    this.baseTime = ["00", "00", "00", "00"];
     this.generateMarkup();
     this.start();
   }
@@ -40,12 +40,12 @@ class CountdownTimer {
         <span class="label">Seconds</span>
       </div>
     `;
-    this.container.insertAdjacentHTML('beforeend', timerMarkup);
+    this.container.insertAdjacentHTML("beforeend", timerMarkup);
   }
 
   // функция записывает время в корректной форме (дописывает 0 перед числами от 0 до 9)
   timeFormation(value) {
-    return String(value).padStart(2, '0');
+    return String(value).padStart(2, "0");
   }
 
   // вычисляем время до окончания таймера
@@ -59,10 +59,10 @@ class CountdownTimer {
     const time = this.countDown();
     const days = this.timeFormation(Math.floor(time / (1000 * 60 * 60 * 24)));
     const hours = this.timeFormation(
-      Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     );
     const mins = this.timeFormation(
-      Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)),
+      Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
     );
     const secs = this.timeFormation(Math.floor((time % (1000 * 60)) / 1000));
 
@@ -89,41 +89,44 @@ class CountdownTimer {
   handlTimer(callback, currentTime) {
     // так как в дальнейшем масив будет перебиратся по индексу,
     // записываем значения в обратном порядке
-    const timeList = ['secs', 'mins', 'hours', 'days'];
+    const timeList = ["secs", "mins", "hours", "days"];
     const changes = callback();
 
-
     const elements = changes
-      .filter((item) => item === true)
+      .filter(item => item === true)
       .map((item, index) => {
         const field = document.querySelector(`.${timeList[index]}`);
         const next = field.querySelector(
-          `[data-value="${timeList[index]}-next"]`,
+          `[data-value="${timeList[index]}-next"]`
         );
         const after = field.querySelector(
-          `[data-value="${timeList[index]}-after"]`,
+          `[data-value="${timeList[index]}-after"]`
         );
         const before = field.querySelector(
-          `[data-value="${timeList[index]}-before"]`,
+          `[data-value="${timeList[index]}-before"]`
         );
         const current = field.querySelector(
-          `[data-value="${timeList[index]}-current"]`,
+          `[data-value="${timeList[index]}-current"]`
         );
 
         return {
-          field, next, after, before, current,
+          field,
+          next,
+          after,
+          before,
+          current
         };
       });
 
     elements.forEach((item, index) => {
       const timeArr = currentTime();
-      item.field.classList.add('flip');
+      item.field.classList.add("flip");
       item.next.textContent = timeArr[index];
       item.after.textContent = timeArr[index];
       setTimeout(() => {
         item.before.textContent = timeArr[index];
         item.current.textContent = timeArr[index];
-        item.field.classList.remove('flip');
+        item.field.classList.remove("flip");
       }, 900);
     });
   }
@@ -149,7 +152,15 @@ class CountdownTimer {
   }
 }
 
-new CountdownTimer({
-  selector: '#timer-1',
-  targetDate: new Date('2019 Dec 28 23:18:50'),
+const date = document.querySelector(".input");
+const timer = document.querySelector("#timer-1");
+
+const counter = new CountdownTimer({
+  selector: "#timer-1",
+  targetDate: new Date("2019 Dec 28 23:18:50")
+});
+
+date.addEventListener("input", e => {
+  counter.targetDate = date.valueAsDate;
+  counter.start();
 });
