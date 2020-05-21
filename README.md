@@ -2,7 +2,7 @@
 
 ![print scrin](homework/image.jpg)
 
-# как использовать плагин таймера?
+## как использовать плагин таймера?
 
 ### Для просмотра демо версии таймера переходите по этой [ссылке](https://imykhailychenko.github.io/goit-js-hw-11-timer/homework/index.html)
 
